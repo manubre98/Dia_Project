@@ -6,21 +6,17 @@
 
 ## Overview
 
-The goal is modeling a scenario in which a seller is pricing some products and spends a given budget on social networks to persuade more and more nodes to buy the products, thus artificially increasing the demand. The seller needs to learn both some information on the social networks and the conversion rate curves.
+Consider the scenario in which advertisement is used to attract users on an ecommerce website and the users, after the purchase of the first unit of a consumable item, will buy additional units of the same item in future. The goal is to find the best joint bidding and pricing strategy taking into account future purchases.
 
 <p align="center">
     <img src="https://i.imgur.com/4ZO24GA.png" width="600" alt="Scenario"/>
 </p>
 
-Suppose:
-
-* Three products to sell, each with an infinite number of units, in a time horizon T;
-
-* Three social networks composed of thousands of nodes, such that each social network is used to sell a different product;
-
-* Three seasonal phases such that the transitions from a phase to the subsequent one are abrupt;
-
-* A conversion rate curve for each social network and each phase, returning the probability that a generic node of the social network buys a product;
+Imagine a consumable item (for which we have an infinite number of units) and two binary features. Imagine three classes of customers C1, C2, C3, each corresponding to a subspace of the features’ space. Each customers’ class is characterized by:
+* a stochastic number of daily clicks of new users (i.e., that have never clicked before these ads) as a function depending on the bid;
+* a stochastic cost per click as a function of the bid;
+* a conversion rate function providing the probability that a user will buy the item given a price;
+* a distribution probability over the number of times the user will come back to the ecommerce website to buy that item by 30 days after the first purchase (and simulate such visits in future).
 
 
 ## Social Influence
