@@ -9,8 +9,9 @@
 Consider the scenario in which advertisement is used to attract users on an ecommerce website and the users, after the purchase of the first unit of a consumable item, will buy additional units of the same item in future. The goal is to find the best joint bidding and pricing strategy taking into account future purchases.
 
 <p align="center">
-    <img src="https://i.imgur.com/4ZO24GA.png" width="600" alt="Scenario"/>
+    <img src="https://user-images.githubusercontent.com/91596609/140611633-49b0e7a4-e293-464a-9d77-420f0947cb33.png" width="400" alt="Scenario"/>
 </p>
+
 
 Imagine a consumable item (for which we have an infinite number of units) and two binary features. Imagine three classes of customers C1, C2, C3, each corresponding to a subspace of the features’ space. Each customers’ class is characterized by:
 * a stochastic number of daily clicks of new users (i.e., that have never clicked before these ads) as a function depending on the bid;
@@ -19,56 +20,52 @@ Imagine a consumable item (for which we have an infinite number of units) and tw
 * a distribution probability over the number of times the user will come back to the ecommerce website to buy that item by 30 days after the first purchase (and simulate such visits in future).
 
 
-## Social Influence
+## General Problem
 
-* Design of an algorithm maximizing the social influence in every single social network once a budget, for that specific social network, is given. Plot of the approximation error as the parameters of the algorithms vary for every specific network.
+* Formulate the objective function when assuming that, once a user makes a purchase with a price p, then the ecommerce will propose the same price p to future visits of the same user and this user will surely buy the item. The revenue function must take into account the cost per click, while there is no budget constraint. Provide an algorithm to find the best joint bidding/pricing strategy and describe its complexity in the number of values of the bids and prices available (assume here that the values of the parameters are known). In the following Steps, assume that the number of bid values are 10 as well as the number of price values.
 
 <p align="center">
-    <img src="https://i.imgur.com/jrBBooS.png" width="1000" alt="vanilla social influence"/>
+    <img src="https://user-images.githubusercontent.com/91596609/140612057-5eb1c15b-5ae1-4c27-9de4-1d9f770465fc.jpg"/>
 </p>
 
-* Design of a greedy algorithm such that, given a cumulative budget to perform jointly social influence in the three social networks, finds the best allocation of the budget over the three social networks to maximize the cumulative social influence. Plot of the approximation error as the parameters of the algorithms vary for every specific network.
+## Pricing (P3, P4)
+
+* Consider the case in which the bid is fixed and learn in online fashion the best pricing strategy when the algorithm does not discriminate among the customers’ classes (and therefore the algorithm works with aggregate data). Assume that the number of daily clicks and the daily cost per click are known. Adopt both an upper-confidence bound approach and a Thompson-sampling approach and compare their performance.
 
 <p align="center">
-    <img src="https://i.imgur.com/F0pqI0q.png" width="300" alt="greedy algorithm"/>
+    <img src="https://user-images.githubusercontent.com/91596609/140612377-968b435c-b039-429b-9c65-08aabab3495a.jpg" width="850" alt="princing no seasonal"/>
 </p>
 
-* Application of a combinatorial bandit algorithm to the situation in which the activation probabilities are not known and we can observe the activation of the edges.  Plot of the cumulative regret as time increases.
+* Do the same as the step before when instead a context-generation approach is adopted to identify the classes of customers and adopt a potentially different pricing strategy per class. In doing that, evaluate the performance of the pricing strategies in the different classes only at the optimal solution (e.g., if prices that are not optimal for two customers’ classes provide different performance, you do not split the contexts). Let us remark that no discrimination of the customers’ classes is performed at the advertising level.
 
 <p align="center">
-    <img src="https://i.imgur.com/IX2koy7.png" width="700" alt="combinatorial bandit"/>
+    <img src="https://user-images.githubusercontent.com/91596609/140612474-d7c29deb-e6f2-464c-9792-da7db7a803c2.jpg" width="850" alt="princing no seasonal"/>
 </p>
 
-## Adding Pricing
+## Bidding (P5)
 
-* Design of a learning pricing algorithm to maximize the cumulative revenue and application of it, together with the algorithm to make social influence, to the case in which the activation probabilities are known. In doing that, suppose a unique seasonal phase for the whole time horizon. The actual purchase depends on the price charged by the seller and the conversion rate curve. Plot of the cumulative regret.
+* Consider the case in which the prices are fixed and learn in online fashion the best bidding strategy when the algorithm does not discriminate among the customers’ classes. Assume that the conversion probability is known.
 
 <p align="center">
-    <img src="https://i.imgur.com/vcoBDSC.png" width="850" alt="princing no seasonal"/>
+    <img src="https://user-images.githubusercontent.com/91596609/140612545-98ae55e3-71e2-4ada-949b-7ef2ea599e39.png" width="450" alt="princing no seasonal"/>
 </p>
 
-* Design of a learning pricing algorithm to maximize the cumulative revenue when there are seasonal phases and apply it, together with the algorithm to make social influence, to the case in which the activation probabilities are known. Plot of the cumulative regret.
+## Pricing & Bidding (P6, P7)
+
+* Consider the general case in which one needs to learn the joint pricing and bidding strategy. Do not discriminate over the customers’ classes both for advertising and pricing.
+Then repeat the same when instead discriminating over the customers’ classes for pricing. In doing that, adopt the context structure already discovered.
 
 <p align="center">
-    <img src="https://i.imgur.com/qaqfO6f.png" width="850" alt="princing no seasonal"/>
-</p>
-
-* Plot of the cumulative regret in the case the seller needs to learn both the activation probabilities and conversion rate curves simultaneously.
-
-<p align="center">
-    <img src="https://i.imgur.com/96m8fyl.png" width="400" alt="combinatorial"/>
+    <img src="https://user-images.githubusercontent.com/91596609/140612800-b5b738bf-853c-4986-ba95-b5f7e4850c42.jpg" width="850" alt="princing no seasonal"/>
 </p>
 
 ## Resources
 
-You can find three Python files and a pdf:
-- The pdf file contains the presentation of the project where you can find our final plots and results shown to the professor at the moment of the project submission.
-- ```network.py``` contains all the classes that are used to define the graphs used in the experiments.
-- ```mab.py``` contains the classes about the learners used for the requests of the project.
-- ```main.py``` contains obviously all the code to be run in order to produce the results shown in the presentation; for each point in the requests we run a specific function contained in this file.
-
-Note that for each function called at the end of the file we specify the size and the complexity of the graphs used by the functions. Feel free to change this parameters in order to try different configurations but pay attention to the time to process big and complex networks.
-
+You can find all the Python files divided for each point and the .pdf of the final report:
+- The pdf file contains the presentation of the project where you can find our final plots and all the results obtained.
+- ```P3``` and ```P4``` contains all the files related to the Pricing Part.
+- ```P5``` contains all the files related to the Bidding Part.
+- ```P6``` and ```P7``` contains all the files related to the joint Pricing and Bidding part.
 
 ## Team
 
